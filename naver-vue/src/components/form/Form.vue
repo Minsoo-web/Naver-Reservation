@@ -1,7 +1,17 @@
 <template>
   <form action id="form-login">
-    <v-text-field label="Email address" v-model="email" :rules="rules" hide-details="auto"></v-text-field>
-    <v-text-field label="Password" v-model="password" :rules="rules" hide-details="auto"></v-text-field>
+    <v-text-field
+      label="Email address"
+      v-model="email"
+      :rules="rules"
+      hide-details="auto"
+    ></v-text-field>
+    <v-text-field
+      label="Password"
+      v-model="password"
+      :rules="rules"
+      hide-details="auto"
+    ></v-text-field>
     <Button :text="'login'" :type="'submit'" />
   </form>
 </template>
@@ -11,7 +21,7 @@ import Button from "@/components/UI-Components/Button";
 export default {
   name: "Form",
   components: {
-    Button
+    Button,
   },
   data() {
     return {
@@ -19,12 +29,12 @@ export default {
       password: "",
       // 검증
       rules: [
-        value => !!value || "Required",
-        value => (value && value.length >= 3) || "Min 3 characters"
-      ]
+        (value) => !!value || "Required",
+        (value) => (value && value.length >= 3) || "Min 3 characters",
+      ],
     };
   },
-  methods: {}
+  methods: {},
 };
 </script>
 
