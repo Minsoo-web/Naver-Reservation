@@ -2,17 +2,17 @@
   <div id="login">
     <div class="container">
       <h1>Login</h1>
-      <Form />
+      <SignIn />
     </div>
   </div>
 </template>
 
 <script>
-import Form from "@/components/form/Form";
+import SignIn from "@/components/form/SignIn";
 export default {
   components: {
-    Form
-  }
+    SignIn,
+  },
 };
 </script>
 
@@ -27,7 +27,7 @@ export default {
 }
 .container {
   width: 50%;
-  height: 50%;
+  height: 70%;
   padding: 20px;
 }
 h1 {
