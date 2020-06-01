@@ -1,18 +1,22 @@
 <template>
-  <div id="home">
-    <h1>Hello</h1>
-    <router-link :to="{ name: 'Mypage' }" exact>내 예약 확인하기</router-link>
+  <div id="mypage">
+    <h1>mypage</h1>
+    <p>{{ userInfo }}</p>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "Home",
+  name: "Mypage",
+  computed: {
+    ...mapState(["userInfo"]),
+  },
 };
 </script>
 
 <style scoped>
-#home {
+#mypage {
   display: flex;
   justify-content: center;
   align-items: center;
