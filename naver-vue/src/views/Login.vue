@@ -2,16 +2,20 @@
   <div id="login">
     <div class="container">
       <h1>Login</h1>
-      <SignIn />
+      <SignIn :signUpEmail="signUpUser" />
     </div>
   </div>
 </template>
 
 <script>
 import SignIn from "@/components/form/SignIn";
+import { mapState } from "vuex";
 export default {
   components: {
     SignIn,
+  },
+  computed: {
+    ...mapState(["signUpUser"]),
   },
 };
 </script>

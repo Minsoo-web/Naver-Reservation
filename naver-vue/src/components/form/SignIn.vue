@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      email: "",
+      email: this.signUpEmail,
       password: "",
       // 검증
       rules: [
@@ -57,6 +57,12 @@ export default {
         //(value) => (value && value.length >= 3) || "Min 3 characters",
       ],
     };
+  },
+  props: {
+    signUpEmail: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
     ...mapActions(["login"]),
