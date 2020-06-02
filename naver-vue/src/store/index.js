@@ -10,6 +10,7 @@ export default new Vuex.Store({
     userInfo: null,
     isLogin: false,
     isLoginError: false,
+    signUpUser: null,
   },
   mutations: {
     loginSuccess(state, payload) {
@@ -27,11 +28,14 @@ export default new Vuex.Store({
       state.isLoginError = false;
       state.userInfo = null;
     },
+    signUp(state, payload) {
+      state.signUpUser = payload;
+    },
   },
   actions: {
     login({ commit, dispatch }, loginObj) {
       axios
-        .post("https://reqres.in/api/login", {
+        .post("http://13.209.160.6:8080/api/v1/users/signin/", {
           email: loginObj.email,
           password: loginObj.password,
         })
@@ -40,6 +44,7 @@ export default new Vuex.Store({
           // 로그인 성공시 로컬스토리지에 토큰 저장
           let token = res.data.token;
           localStorage.setItem("access_token", token);
+          localStorage.setItem("userEmail", loginObj.email);
           dispatch("getMemberInfo");
         })
         .catch((err) => {
@@ -50,35 +55,56 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("logout");
       localStorage.removeItem("access_token");
+      localStorage.removeItem("userEmail");
       router.push({ name: "Home" });
     },
     getMemberInfo({ commit }) {
       let config = {
         headers: {
-          "access-token": localStorage.getItem("access_token"),
+          Authorization: localStorage.getItem("access_token"),
         },
       };
       if (localStorage.getItem("access_token")) {
         axios
-          .get("https://reqres.in/api/users/2", config)
+          .get(
+            `http://13.209.160.6:8080/api/v1/users/?Email=${localStorage.getItem(
+              "userEmail"
+            )}`,
+            config
+          )
           .then((response) => {
             let obj = {
-              email: response.data.data.email,
-              name:
-                response.data.data.last_name + response.data.data.first_name,
-              picture: response.data.data.avatar,
+              email: response.data.email,
+              name: response.data.name,
+              picture: response.data.picture,
             };
             commit("loginSuccess", obj);
           })
           .catch((error) => {
             // 통신 문제 에러
-            console.log(err);
+            console.log(error);
             commit("loginError");
           });
-      } else {
-        // 토큰 만료로 인한 로그인 실패
-        commit("loginError");
       }
+    },
+    signUp({ commit }, signUpObj) {
+      console.log(signUpObj);
+      axios
+        .post("http://13.209.160.6:8080/api/v1/users/", {
+          email: signUpObj.email,
+          name: signUpObj.name,
+          password: signUpObj.password,
+        })
+        .then((res) => {
+          console.log(res);
+          // 회원가입을 완료하면 로그인 페이지로 넘어가고
+          // 이메일만 미리 작성해준다.
+          commit("signUp", signUpObj.email);
+          router.push({ name: "Login" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   modules: {},

@@ -43,7 +43,7 @@ export default {
   watch: {
     isLogin(newVal) {
       if (newVal == true) {
-        this.$router.push({ name: "Home" });
+        this.$router.push({ name: "Mypage" });
       }
     },
   },
