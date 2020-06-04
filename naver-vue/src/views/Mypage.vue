@@ -1,22 +1,22 @@
 <template>
   <div id="mypage">
     <Header></Header>
+    <TabNav></TabNav>
     <Content></Content>
-    <Review></Review>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Mypage/Header";
 import Content from "@/components/Mypage/Content";
-import Review from "@/components/Mypage/Review";
+import TabNav from "@/components/Mypage/TabNav";
 import { mapState } from "vuex";
 export default {
   name: "Mypage",
   components: {
     Header,
     Content,
-    Review
+    TabNav
   }
 };
 </script>
@@ -25,10 +25,9 @@ export default {
 #mypage {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   height: 100vh;
+  margin: 0 auto;
 }
-section {
-  min-height: 50vh;
-}
+
 </style>
