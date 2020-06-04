@@ -11,6 +11,75 @@ export default new Vuex.Store({
     isLogin: false,
     isLoginError: false,
     signUpUser: null,
+    reserveInfo: [
+      {
+        title: "전체",
+        shopInfo: [
+          {
+            id: 1,
+            name: "처음 간 가게",
+            date: "2020-02-20",
+            thumnail:
+              "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1510&q=80",
+            score: 5,
+          },
+          {
+            id: 2,
+            name: "두번째로 간 가게",
+            date: "2020-02-24",
+            thumnail:
+              "https://images.unsplash.com/photo-1564419965579-5da68ffdf3af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
+            score: 4,
+          },
+          {
+            id: 3,
+            name: "방문예정 가게",
+            date: "2020-06-06",
+            thumnail:
+              "https://images.unsplash.com/photo-1513451732213-5775a1c40335?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80",
+            score: null,
+          },
+        ],
+      },
+      {
+        title: "이용 예정",
+        shopInfo: [
+          {
+            id: 3,
+            name: "방문예정 가게",
+            date: "2020-06-06",
+            thumnail:
+              "https://images.unsplash.com/photo-1513451732213-5775a1c40335?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80",
+            score: null,
+          },
+        ],
+      },
+      {
+        title: "이용 완료",
+        shopInfo: [
+          {
+            id: 1,
+            name: "처음 간 가게",
+            date: "2020-02-20",
+            thumnail:
+              "https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1510&q=80",
+            score: 5,
+          },
+          {
+            id: 2,
+            name: "두번째로 간 가게",
+            date: "2020-02-24",
+            thumnail:
+              "https://images.unsplash.com/photo-1564419965579-5da68ffdf3af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80",
+            score: 4,
+          },
+        ],
+      },
+      {
+        title: "취소 환불",
+        shopInfo: [],
+      },
+    ],
   },
   mutations: {
     loginSuccess(state, payload) {
