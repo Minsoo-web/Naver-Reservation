@@ -1,26 +1,34 @@
 <template>
   <div id="mypage">
-    <h1>mypage</h1>
-    <p>{{ userInfo }}</p>
+    <Header></Header>
+    <Content></Content>
+    <Review></Review>
   </div>
 </template>
 
 <script>
+import Header from "@/components/Mypage/Header";
+import Content from "@/components/Mypage/Content";
+import Review from "@/components/Mypage/Review";
 import { mapState } from "vuex";
 export default {
   name: "Mypage",
-  computed: {
-    ...mapState(["userInfo"]),
-  },
+  components: {
+    Header,
+    Content,
+    Review
+  }
 };
 </script>
 
 <style scoped>
 #mypage {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
+}
+section {
+  min-height: 50vh;
 }
 </style>
