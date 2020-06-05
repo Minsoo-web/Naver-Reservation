@@ -5,6 +5,23 @@
       <div class="userInfo-box">
         <span>{{ userInfo.name }}님</span>
         <span>{{ userInfo.email }}</span>
+        <Modal>
+          <template v-slot:row1>
+            <v-text-field label="Email*" required></v-text-field>
+          </template>
+          <template v-slot:row2>
+            <v-text-field label="Name*" required></v-text-field>
+          </template>
+          <template v-slot:row3>
+            <v-text-field label="Password*" type="password" required></v-text-field>
+          </template>
+          <template v-slot:row4>
+            <small>*는 필수 사항입니다.</small>
+          </template>
+          <template v-slot:btn>
+            <Button :text="'제출'" @onClick="modalShow" />
+          </template>
+        </Modal>
       </div>
     </div>
     <div id="reserve-num">
@@ -18,14 +35,21 @@
 
 <script>
 import Profile from "@/components/UI-Components/Profile";
-import { mapState } from "vuex";
+import Modal from "@/components/UI-Components/Modal";
+import Button from "@/components/UI-Components/Button";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "Header",
   components: {
-    Profile
+    Profile,
+    Modal,
+    Button
   },
   computed: {
     ...mapState(["userInfo", "reserveInfo"])
+  },
+  methods: {
+    ...mapMutations(["modalShow"])
   }
 };
 </script>
