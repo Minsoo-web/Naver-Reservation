@@ -11,6 +11,7 @@ export default new Vuex.Store({
     isLogin: false,
     isLoginError: false,
     signUpUser: null,
+    modalView: false,
     reserveInfo: [
       {
         title: "전체",
@@ -99,6 +100,9 @@ export default new Vuex.Store({
     },
     signUp(state, payload) {
       state.signUpUser = payload;
+    },
+    modalShow(state) {
+      state.modalView = !state.modalView;
     },
   },
   actions: {
