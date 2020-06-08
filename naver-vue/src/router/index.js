@@ -43,6 +43,26 @@ const routes = [
     component: () => import("../views/Mypage.vue"),
   },
   {
+    path: "/account/edit",
+    name: "Account",
+    beforeEnter: onlyAuthUser,
+    component: () => import("../views/Account.vue"),
+    children: [
+      {
+        path: "/account/edit",
+        name: "Edit",
+        beforeEnter: onlyAuthUser,
+        component: () => import("../views/Account/Edit.vue"),
+      },
+      {
+        path: "/account/password/change",
+        name: "PassWord",
+        beforeEnter: onlyAuthUser,
+        component: () => import("../views/Account/Password.vue"),
+      },
+    ],
+  },
+  {
     path: "/signup",
     name: "SignUp",
     component: () => import("../views/SignUp.vue"),
