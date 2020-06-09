@@ -2,14 +2,14 @@
   <div id="Account">
     <div>
       <aside>
-        <ul>
-          <li>
-            <router-link :to="{name : 'Edit'}">프로필 편집</router-link>
-          </li>
-          <li>
-            <router-link :to="{name : 'PassWord'}">비밀번호 변경</router-link>
-          </li>
-        </ul>
+        <v-list>
+          <v-list-item router :to="{ name: 'Edit' }">
+            <v-list-item-title>프로필 편집</v-list-item-title>
+          </v-list-item>
+          <v-list-item router :to="{ name: 'PassWord' }">
+            <v-list-item-title>비밀번호 변경</v-list-item-title>
+          </v-list-item>
+        </v-list>
       </aside>
       <div>
         <router-view></router-view>
@@ -47,6 +47,7 @@ export default {
       height: 100%;
     }
     & > aside + div {
+      width: 100%;
       /* background-color: seagreen; */
     }
   }
