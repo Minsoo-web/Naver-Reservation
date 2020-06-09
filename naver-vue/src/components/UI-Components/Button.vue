@@ -2,6 +2,7 @@
   <button
     :style="styleObj"
     :type="type"
+    :disabled="disabled"
     @mouseover="onHover"
     @mouseleave="onLeave"
     @click="onClick"
@@ -50,6 +51,10 @@ export default {
     type: {
       type: String,
       default: null
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -58,5 +63,8 @@ export default {
 <style scoped>
 button {
   padding: 10px;
+}
+button:disabled {
+  opacity: 0.5;
 }
 </style>
