@@ -104,6 +104,13 @@ export default new Vuex.Store({
     modalShow(state) {
       state.modalView = !state.modalView;
     },
+    userInfoEdit(state, payload) {
+      let newUser = {
+        ...state.userInfo,
+        [payload.property]: payload.value,
+      };
+      state.userInfo = newUser;
+    },
   },
   actions: {
     login({ commit, dispatch }, loginObj) {
@@ -115,7 +122,7 @@ export default new Vuex.Store({
         .then((res) => {
           console.log(res);
           // 로그인 성공시 로컬스토리지에 토큰 저장
-          let token = res.data.token;
+          let token = res.data.accessToken;
           localStorage.setItem("access_token", token);
           localStorage.setItem("userEmail", loginObj.email);
           dispatch("getMemberInfo");
@@ -146,10 +153,16 @@ export default new Vuex.Store({
             config
           )
           .then((response) => {
+            let picture = "";
+            if (response.data.picture == null) {
+              picture = undefined;
+            } else {
+              picture = response.data.picture;
+            }
             let obj = {
               email: response.data.email,
               name: response.data.name,
-              picture: response.data.picture,
+              picture: picture,
             };
             commit("loginSuccess", obj);
           })
@@ -178,6 +191,13 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err);
         });
+    },
+    userEdit({ commit }, newUserInfo) {
+      console.log(newUserInfo);
+      commit("userInfoEdit", newUserInfo);
+    },
+    userPwEdit({ commit }, newUserPw) {
+      console.log(newUserPw);
     },
   },
   modules: {},
