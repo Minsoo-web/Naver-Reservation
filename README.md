@@ -52,3 +52,11 @@ npm run serve
 
 - Nav 상세 디자인
 - Modal 컴포넌트 작성 및 스타일링
+
+### 0.1.2 Mypage Edit
+
+- 회원정보 수정 라우터 설계
+- 라우터 뷰에 따른 views 컴포넌트 생성
+- 반복되는 컴포넌트 아토믹하게 분류
+- API 연동 직전의 `mutations` 와 `actions` 작성
+- 디자인은 `instagram`의 회원정보 수정 페이지를 참조하였습니다.
