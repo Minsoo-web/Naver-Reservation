@@ -1,6 +1,7 @@
 <template>
   <div id="modal">
-    <Button :text="'프로필 수정'" @onClick="modalShow" />
+    <Button v-if="type == 'btn'" :text="text" @onClick="modalShow" />
+    <span v-else @click="modalShow">{{text}}</span>
     <div id="modal-wrapper" v-show="modalView" @click.self="modalShow">
       <section>
         <div>
@@ -39,11 +40,30 @@ export default {
   },
   methods: {
     ...mapMutations(["modalShow"])
+  },
+  props: {
+    text: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      default: "btn"
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+#modal {
+  & > span {
+    cursor: pointer;
+    color: rgb(123, 207, 163);
+  }
+  & > span:hover {
+    color: rgb(123, 217, 163);
+  }
+}
 #modal-wrapper {
   position: absolute;
   top: 0;
