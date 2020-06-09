@@ -29,4 +29,8 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.input {
+  padding: 15px;
+  border: 1px solid #8d8d8d;
+}
 </style>

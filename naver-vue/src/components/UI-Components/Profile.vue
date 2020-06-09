@@ -1,6 +1,10 @@
 <template>
   <div class="profile-wrapper" :style="sizeStyle">
-    <img v-if="picture == null" src="http://www.macreel.com/img/testimonial-1.jpg" alt="profile" />
+    <img
+      v-if="picture == undefined"
+      src="http://www.macreel.com/img/testimonial-1.jpg"
+      alt="profile"
+    />
     <img v-else :src="picture" alt="프로필" />
   </div>
 </template>
