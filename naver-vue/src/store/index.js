@@ -8,9 +8,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: null,
+    // signUp
+    isSignUpError: false,
+    signUpUser: null,
+    // login
     isLogin: false,
     isLoginError: false,
-    signUpUser: null,
+    // update
+    userUpdateError: false,
+    userUpdateSuccess: false,
+
     modalView: false,
     reserveInfo: [
       {
@@ -93,6 +100,9 @@ export default new Vuex.Store({
       state.isLoginError = true;
       state.userInfo = null;
     },
+    clearLoginError(state) {
+      state.isLoginError = false;
+    },
     logout(state) {
       state.isLogin = false;
       state.isLoginError = false;
@@ -100,6 +110,12 @@ export default new Vuex.Store({
     },
     signUp(state, payload) {
       state.signUpUser = payload;
+    },
+    signUpError(state) {
+      state.isSignUpError = true;
+    },
+    clearSignUpError(state) {
+      state.isSignUpError = false;
     },
     modalShow(state) {
       state.modalView = !state.modalView;
@@ -110,6 +126,18 @@ export default new Vuex.Store({
         [payload.property]: payload.value,
       };
       state.userInfo = newUser;
+    },
+    userUpdateError(state) {
+      state.userUpdateError = true;
+      state.userUpdateSuccess = false;
+    },
+    userUpdateSuccess(state) {
+      state.userUpdateError = false;
+      state.userUpdateSuccess = true;
+    },
+    clearUserUpdate(state) {
+      state.userUpdateError = false;
+      state.userUpdateSuccess = false;
     },
   },
   actions: {
@@ -176,28 +204,94 @@ export default new Vuex.Store({
     signUp({ commit }, signUpObj) {
       console.log(signUpObj);
       axios
-        .post("http://13.209.160.6:8080/api/v1/users/", {
-          email: signUpObj.email,
-          name: signUpObj.name,
-          password: signUpObj.password,
-        })
+        .get(
+          `http://13.209.160.6:8080/api/v1/users/authority/?email=${signUpObj.email}`
+        )
         .then((res) => {
-          console.log(res);
-          // 회원가입을 완료하면 로그인 페이지로 넘어가고
-          // 이메일만 미리 작성해준다.
-          commit("signUp", signUpObj.email);
-          router.push({ name: "Login" });
+          if (res.data) {
+            // 중복된 이메일이 존재
+            commit("signUpError");
+            console.log("이메일 중복!");
+          } else {
+            // 이메일 중복 통과
+            commit("clearSignUpError");
+            axios
+              .post("http://13.209.160.6:8080/api/v1/users/", {
+                email: signUpObj.email,
+                name: signUpObj.name,
+                password: signUpObj.password,
+              })
+              .then((res) => {
+                console.log(res);
+                // 회원가입을 완료하면 로그인 페이지로 넘어가고
+                // 이메일만 미리 작성해준다.
+                commit("signUp", signUpObj.email);
+                router.push({ name: "Login" });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
         });
     },
     userEdit({ commit }, newUserInfo) {
-      console.log(newUserInfo);
-      commit("userInfoEdit", newUserInfo);
+      let updateObj = {
+        [newUserInfo.property]: newUserInfo.value,
+      };
+      console.log(updateObj);
+      let config = {
+        headers: {
+          Authorization: localStorage.getItem("access_token"),
+        },
+      };
+      axios
+        .put(
+          `http://13.209.160.6:8080/api/v1/users/info/?email=${localStorage.getItem(
+            "userEmail"
+          )}`,
+          updateObj,
+          config
+        )
+        .then((res) => {
+          console.log(res);
+          commit("userUpdateSuccess");
+          commit("userInfoEdit", newUserInfo);
+        })
+        .catch((err) => {
+          console.log(err);
+          commit("userUpdateError");
+        });
     },
     userPwEdit({ commit }, newUserPw) {
       console.log(newUserPw);
+      let config = {
+        headers: {
+          Authorization: localStorage.getItem("access_token"),
+        },
+      };
+      axios
+        .put(
+          `http://13.209.160.6:8080/api/v1/users/password/?email=${localStorage.getItem(
+            "userEmail"
+          )}`,
+          newUserPw,
+          config
+        )
+        .then((res) => {
+          console.log(res.data);
+          if (res.data == "Failed Old Password Not Match") {
+            // 비밀번호 불일치
+            commit("userUpdateError");
+          } else {
+            commit("userUpdateSuccess");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
   modules: {},
