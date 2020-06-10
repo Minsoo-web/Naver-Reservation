@@ -1,15 +1,9 @@
 <template>
   <div id="form-login">
-    <v-alert v-if="isLoginError" type="error"
-      >이메일 또는 비밀번호를 확인해 주세요</v-alert
-    >
+    <v-alert v-if="isLoginError" type="error">이메일 또는 비밀번호를 확인해 주세요</v-alert>
+    <v-text-field label="Email address" v-model="email" :rules="rules" hide-details="auto"></v-text-field>
     <v-text-field
-      label="Email address"
-      v-model="email"
-      :rules="rules"
-      hide-details="auto"
-    ></v-text-field>
-    <v-text-field
+      ref="refPassword"
       label="Password"
       v-model="password"
       :rules="rules"
@@ -31,14 +25,14 @@
 
 <script>
 import Button from "@/components/UI-Components/Button";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "SignIn",
   components: {
-    Button,
+    Button
   },
   computed: {
-    ...mapState(["isLogin", "isLoginError"]),
+    ...mapState(["isLogin", "isLoginError"])
   },
   watch: {
     isLogin(newVal) {
@@ -46,6 +40,17 @@ export default {
         this.$router.push({ name: "Mypage" });
       }
     },
+    isLoginError(newVal) {
+      if (newVal == true) {
+        this.password = "";
+        this.$refs.refPassword.focus();
+      }
+    },
+    email(newVal) {
+      if (newVal != "") {
+        this.clearLoginError();
+      }
+    }
   },
   data() {
     return {
@@ -53,20 +58,21 @@ export default {
       password: "",
       // 검증
       rules: [
-        (value) => !!value || "Required",
+        value => !!value || "Required"
         //(value) => (value && value.length >= 3) || "Min 3 characters",
-      ],
+      ]
     };
   },
   props: {
     signUpEmail: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   methods: {
     ...mapActions(["login"]),
-  },
+    ...mapMutations(["clearLoginError"])
+  }
 };
 </script>
 
