@@ -1,5 +1,7 @@
 <template>
   <div id="Edit-wrapper">
+    <v-alert v-if="userUpdateError" type="error">에러 발생...</v-alert>
+    <v-alert v-if="userUpdateSuccess" type="success">회원정보 수정 완료!</v-alert>
     <!-- row1 -->
     <LabelInput>
       <template v-slot:col1>
@@ -38,7 +40,7 @@ import Profile from "@/components/UI-Components/Profile";
 import Modal from "@/components/UI-Components/Modal";
 import LabelInput from "@/components/form/LabelInput";
 import Button from "@/components/UI-Components/Button";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "Edit",
   components: {
@@ -48,7 +50,7 @@ export default {
     Button
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo", "userUpdateError", "userUpdateSuccess"])
   },
   data() {
     return {
@@ -56,12 +58,32 @@ export default {
       name: ""
     };
   },
+  watch: {
+    name(newVal) {
+      //  페이지 이동 없이 이름을 또 변경할 시 알람창 없애기
+      if (newVal) {
+        this.clearUserUpdate();
+      }
+      //  이름란이 공백일 경우 버튼 클릭 x
+      if (newVal == "") {
+        console.log("공백!");
+        this.emptyName();
+      }
+    }
+  },
   methods: {
+    ...mapMutations(["clearUserUpdate"]),
     ...mapActions(["userEdit"]),
     onChange(e) {
       this.change = false;
       this.name = e.target.value;
+    },
+    emptyName() {
+      this.change = true;
     }
+  },
+  destroyed() {
+    this.clearUserUpdate();
   }
 };
 </script>
