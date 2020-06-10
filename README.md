@@ -60,3 +60,10 @@ npm run serve
 - 반복되는 컴포넌트 아토믹하게 분류
 - API 연동 직전의 `mutations` 와 `actions` 작성
 - 디자인은 `instagram`의 회원정보 수정 페이지를 참조하였습니다.
+
+### 0.2.0 회원정보 수정
+
+- 회원정보 수정 API 연동
+  `close` # 6
+- 회원 비밀번호 수정 API 연동
+  `close` # 7
