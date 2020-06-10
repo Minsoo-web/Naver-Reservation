@@ -3,18 +3,9 @@
     <div id="container-signUp">
       <h1>Sign Up</h1>
       <div id="form-signUp">
-        <v-text-field
-          label="Email address"
-          v-model="email"
-          :rules="rules"
-          hide-details="auto"
-        ></v-text-field>
-        <v-text-field
-          label="Name"
-          v-model="name"
-          :rules="rules"
-          hide-details="auto"
-        ></v-text-field>
+        <v-alert v-if="isSignUpError" type="error">이미 존재하는 이메일입니다.</v-alert>
+        <v-text-field label="Email address" v-model="email" :rules="rules" hide-details="auto"></v-text-field>
+        <v-text-field label="Name" v-model="name" :rules="rules" hide-details="auto"></v-text-field>
         <v-text-field
           label="Password"
           v-model="password"
@@ -40,10 +31,21 @@
 
 <script>
 import Button from "@/components/UI-Components/Button";
-import { mapActions } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 export default {
   components: {
-    Button,
+    Button
+  },
+  computed: {
+    ...mapState(["isSignUpError"])
+  },
+  watch: {
+    // 이메일 입력시 에러 해제
+    email(newVal) {
+      if (newVal) {
+        this.clearSignUpError();
+      }
+    }
   },
   data() {
     return {
@@ -51,14 +53,15 @@ export default {
       name: "",
       password: "",
       rules: [
-        (value) => !!value || "Required",
+        value => !!value || "Required"
         //(value) => (value && value.length >= 3) || "Min 3 characters",
-      ],
+      ]
     };
   },
   methods: {
     ...mapActions(["signUp"]),
-  },
+    ...mapMutations(["clearSignUpError"])
+  }
 };
 </script>
 
