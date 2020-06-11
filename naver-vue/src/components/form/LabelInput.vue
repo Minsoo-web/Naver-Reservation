@@ -10,7 +10,13 @@
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  name: "LabelInput",
+  computed: {
+    ...mapState(["userInfo"])
+  }
+};
 </script>
 
 <style lang="scss" scoped>

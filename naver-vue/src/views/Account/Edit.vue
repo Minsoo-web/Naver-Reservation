@@ -58,20 +58,14 @@ export default {
       name: ""
     };
   },
-  created() {
+  mounted() {
     this.name = this.userInfo.name;
-    console.log(this.name);
   },
   watch: {
     name(newVal) {
       //  페이지 이동 없이 이름을 또 변경할 시 알람창 없애기
       if (newVal) {
         this.clearUserUpdate();
-      }
-      //  이름란이 공백일 경우 버튼 클릭 x
-      if (newVal == "") {
-        console.log("공백!");
-        this.emptyName();
       }
     }
   },
@@ -80,10 +74,9 @@ export default {
     ...mapActions(["userEdit"]),
     onChange(e) {
       this.change = false;
-      this.name = e.target.value;
-    },
-    emptyName() {
-      this.change = true;
+      if (e.target.value == "") {
+        this.change = true;
+      }
     }
   },
   destroyed() {
