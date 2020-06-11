@@ -1,8 +1,8 @@
 name: Main CI # action 명
 on: # 이벤트 트리거
-  push: # push event에 반응
+  merge: # push event에 반응
     branches: # github repository의 branch가
-      - front-patch-2 # master 일 경우만
+      - deploy # master 일 경우만
 
 jobs: # jobs
   build:

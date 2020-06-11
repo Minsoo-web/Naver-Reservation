@@ -1,14 +1,8 @@
 <template>
   <div id="Edit-wrapper">
-    <v-alert v-if="userUpdateError" type="error"
-      >이전 비밀번호가 일치하지 않습니다.</v-alert
-    >
-    <v-alert v-if="isPassword" type="error"
-      >입력하신 비밀번호가 일치하지 않습니다.</v-alert
-    >
-    <v-alert v-if="userUpdateSuccess" type="success"
-      >비밀번호 변경 완료!</v-alert
-    >
+    <v-alert v-if="userUpdateError" type="error">이전 비밀번호가 일치하지 않습니다.</v-alert>
+    <v-alert v-if="isPassword" type="error">입력하신 비밀번호가 일치하지 않습니다.</v-alert>
+    <v-alert v-if="userUpdateSuccess" type="success">비밀번호 변경 완료!</v-alert>
     <LabelInput>
       <template v-slot:col1>
         <strong>현재 비밀번호</strong>
@@ -21,7 +15,6 @@
           v-model="oldPassword"
           v-on:input="Ko2En"
         />
-        {{ oldPassword }}
       </template>
     </LabelInput>
     <LabelInput>
@@ -80,14 +73,14 @@ export default {
   name: "Password",
   components: {
     LabelInput,
-    Button,
+    Button
   },
   computed: {
     ...mapState(["userUpdateError", "userUpdateSuccess"]),
     // 새로운 비번 재입력이 일치
     isPassword() {
       return this.newPassword != this.re_password;
-    },
+    }
   },
   watch: {
     isPassword(newVal) {
@@ -114,7 +107,7 @@ export default {
     },
     userUpdateError(newVal) {
       this.clearPw(newVal);
-    },
+    }
   },
   data() {
     return {
@@ -122,7 +115,7 @@ export default {
       newPassword: "",
       re_password: "",
       clickAble: true,
-      nextPw: true,
+      nextPw: true
     };
   },
   methods: {
@@ -156,11 +149,11 @@ export default {
           console.log("some Err");
           break;
       }
-    },
+    }
   },
   destroyed() {
     this.clearUserUpdate();
-  },
+  }
 };
 </script>
 
