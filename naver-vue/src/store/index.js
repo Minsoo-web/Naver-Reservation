@@ -267,6 +267,10 @@ export default new Vuex.Store({
     },
     userPwEdit({ commit }, newUserPw) {
       console.log(newUserPw);
+      if (newUserPw.newPassword == "") {
+        commit("userUpdateError");
+        return;
+      }
       let config = {
         headers: {
           Authorization: localStorage.getItem("access_token"),
