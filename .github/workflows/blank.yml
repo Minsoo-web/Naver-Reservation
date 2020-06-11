@@ -6,12 +6,20 @@ on: # 이벤트 트리거
 
 jobs: # jobs
   build: 
-    # GitHub-hosted runners env
     runs-on: ubuntu-latest
     # using Ubuntu 18.04 LTS
     steps: # steps
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@front-patch-2
       
+      - name: Cache node modules      # node modules 캐싱
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
       - name: Npm install # 
          run: npm install # npm install
       
@@ -26,4 +34,4 @@ jobs: # jobs
             aws s3 cp \ 
                 --recursive \
                 --region ap-northeast-2 \
-                dist s3://vue-github-action
+                dist s3://Naver-Reservation
