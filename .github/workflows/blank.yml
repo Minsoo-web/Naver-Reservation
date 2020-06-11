@@ -1,6 +1,6 @@
 name: Main CI # action 명
 on: # 이벤트 트리거
-  merge: # push event에 반응
+  pull_request: # push event에 반응
     branches: # github repository의 branch가
       - deploy # master 일 경우만
 
