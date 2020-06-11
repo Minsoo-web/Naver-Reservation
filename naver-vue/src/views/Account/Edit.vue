@@ -18,7 +18,7 @@
         <strong>이름</strong>
       </template>
       <template v-slot:col2>
-        <input type="text" :value="userInfo.name" class="input" @keyup="onChange" />
+        <input type="text" v-model="name" class="input" @keyup="onChange" />
       </template>
     </LabelInput>
     <div class="submit-wrapper">
@@ -57,6 +57,10 @@ export default {
       change: true,
       name: ""
     };
+  },
+  created() {
+    this.name = this.userInfo.name;
+    console.log(this.name);
   },
   watch: {
     name(newVal) {
