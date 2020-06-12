@@ -67,3 +67,8 @@ npm run serve
   `close` # 6
 - 회원 비밀번호 수정 API 연동
   `close` # 7
+
+### 0.2.1 AWS S3 배포
+
+- http://vue-github-action.s3-website.ap-northeast-2.amazonaws.com/
+- Github Action 을 사용해 CI/CD 를 구축
