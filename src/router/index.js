@@ -26,6 +26,10 @@ const onlyAuthUser = (to, from, next) => {
 
 const routes = [
   {
+    path: "*",
+    component: () => import("../components/NotFound"),
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,
@@ -35,6 +39,11 @@ const routes = [
     name: "Login",
     beforeEnter: rejectAuthUser,
     component: () => import("../views/Login.vue"),
+  },
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: () => import("../views/SignUp.vue"),
   },
   {
     path: "/mypage",
@@ -63,9 +72,24 @@ const routes = [
     ],
   },
   {
-    path: "/signup",
-    name: "SignUp",
-    component: () => import("../views/SignUp.vue"),
+    path: "/owner",
+    name: "Owner",
+    beforeEnter: onlyAuthUser,
+    component: () => import("@/views/Owner/Owner"),
+    children: [
+      {
+        path: "/owner/shop",
+        name: "Shop",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/views/Owner/Shop"),
+      },
+      {
+        path: "/owner/regist",
+        name: "Regist",
+        beforeEnter: onlyAuthUser,
+        component: () => import("@/views/Owner/Regist"),
+      },
+    ],
   },
 ];
 
