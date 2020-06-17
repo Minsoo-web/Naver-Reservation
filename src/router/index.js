@@ -78,10 +78,10 @@ const routes = [
     component: () => import("@/views/Owner/Owner"),
     children: [
       {
-        path: "/owner/shop",
-        name: "Shop",
+        path: "/owner/edit",
+        name: "Owner_Edit",
         beforeEnter: onlyAuthUser,
-        component: () => import("@/views/Owner/Shop"),
+        component: () => import("@/views/Owner/Edit"),
       },
       {
         path: "/owner/regist",
