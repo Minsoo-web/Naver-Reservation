@@ -148,7 +148,6 @@ export default new Vuex.Store({
           password: loginObj.password,
         })
         .then((res) => {
-          console.log(res);
           // 로그인 성공시 로컬스토리지에 토큰 저장
           let token = res.data.accessToken;
           localStorage.setItem("access_token", token);
@@ -191,6 +190,7 @@ export default new Vuex.Store({
               email: response.data.email,
               name: response.data.name,
               picture: picture,
+              authority: response.data.authority,
             };
             commit("loginSuccess", obj);
           })
@@ -202,7 +202,6 @@ export default new Vuex.Store({
       }
     },
     signUp({ commit }, signUpObj) {
-      console.log(signUpObj);
       axios
         .get(
           `http://13.209.160.6:8080/api/v1/users/authority/?email=${signUpObj.email}`
@@ -222,7 +221,6 @@ export default new Vuex.Store({
                 password: signUpObj.password,
               })
               .then((res) => {
-                console.log(res);
                 // 회원가입을 완료하면 로그인 페이지로 넘어가고
                 // 이메일만 미리 작성해준다.
                 commit("signUp", signUpObj.email);
@@ -241,7 +239,6 @@ export default new Vuex.Store({
       let updateObj = {
         [newUserInfo.property]: newUserInfo.value,
       };
-      console.log(updateObj);
       let config = {
         headers: {
           Authorization: localStorage.getItem("access_token"),
@@ -256,7 +253,6 @@ export default new Vuex.Store({
           config
         )
         .then((res) => {
-          console.log(res);
           commit("userUpdateSuccess");
           commit("userInfoEdit", newUserInfo);
         })
@@ -266,7 +262,6 @@ export default new Vuex.Store({
         });
     },
     userPwEdit({ commit }, newUserPw) {
-      console.log(newUserPw);
       if (newUserPw.newPassword == "") {
         commit("userUpdateError");
         return;
@@ -285,7 +280,6 @@ export default new Vuex.Store({
           config
         )
         .then((res) => {
-          console.log(res.data);
           if (res.data == "Failed Old Password Not Match") {
             // 비밀번호 불일치
             commit("userUpdateError");

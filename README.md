@@ -72,3 +72,6 @@ npm run serve
 
 - http://vue-github-action.s3-website.ap-northeast-2.amazonaws.com/
 - Github Action 을 사용해 CI/CD 를 구축
+
+### 0.2.2 Owner 권한 상승 API 연동
+

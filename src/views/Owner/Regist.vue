@@ -1,128 +1,82 @@
 <template>
-  <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-    <form>
-      <ValidationProvider
-        v-slot="{ errors }"
-        name="Name"
-        rules="required|max:10"
-      >
-        <v-text-field
-          v-model="name"
-          :counter="10"
-          :error-messages="errors"
-          label="Name"
-          required
-        ></v-text-field>
-      </ValidationProvider>
-      <ValidationProvider
-        v-slot="{ errors }"
-        name="email"
-        rules="required|email"
-      >
-        <v-text-field
-          v-model="email"
-          :error-messages="errors"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </ValidationProvider>
-      <ValidationProvider v-slot="{ errors }" name="select" rules="required">
-        <v-select
-          v-model="select"
-          :items="items"
-          :error-messages="errors"
-          label="Select"
-          data-vv-name="select"
-          required
-        ></v-select>
-      </ValidationProvider>
-      <ValidationProvider
-        v-slot="{ errors, valid }"
-        rules="required"
-        name="checkbox"
-      >
-        <v-checkbox
-          v-model="checkbox"
-          :error-messages="errors"
-          value="1"
-          label="Option"
-          type="checkbox"
-          required
-        ></v-checkbox>
-      </ValidationProvider>
-
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
-    </form>
-  </ValidationObserver>
+  <div id="regist">
+    <div>
+      <span>author</span>
+      <input class="input" type="text" v-model="userInfo.name" readonly />
+    </div>
+    <div>
+      <span>title</span>
+      <input type="text" class="input" v-model="form.title" />
+    </div>
+    <div>
+      <span>category</span>
+      <input type="text" class="input" v-model="form.category" />
+    </div>
+    <div>
+      <span>overView</span>
+      <input type="text" class="input" v-model="form.overView" />
+    </div>
+    <div>
+      <span>content</span>
+      <textarea type="text" class="input" v-model="form.content"></textarea>
+    </div>
+    <div>
+      <span>price</span>
+      <input type="text" class="input" v-model="form.price" />
+    </div>
+    <Button :text="'submit'" @onClick="regist()"></Button>
+  </div>
 </template>
 
 <script>
-import { required, email, max } from "vee-validate/dist/rules";
-import {
-  extend,
-  ValidationObserver,
-  ValidationProvider,
-  setInteractionMode,
-} from "vee-validate";
-
-setInteractionMode("eager");
-
-extend("required", {
-  ...required,
-  message: "{_field_} can not be empty",
-});
-
-extend("max", {
-  ...max,
-  message: "{_field_} may not be greater than {length} characters",
-});
-
-extend("email", {
-  ...email,
-  message: "Email must be valid",
-});
-
+import { mapState } from "vuex";
+import axios from "axios";
+import Button from "@/components/UI-Components/Button";
 export default {
   components: {
-    ValidationProvider,
-    ValidationObserver,
+    Button
   },
-  data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    checkbox: null,
-  }),
-
+  computed: {
+    ...mapState(["userInfo"])
+  },
+  data() {
+    return {
+      form: {
+        category: "",
+        content: "",
+        overView: "",
+        price: 0,
+        title: ""
+      }
+    };
+  },
   methods: {
-    submit() {
-      const al = this.$refs.observer.validate();
-      console.log(al);
-    },
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = null;
-      this.$refs.observer.reset();
-    },
-  },
+    regist() {
+      let config = {
+        headers: {
+          Authorization: localStorage.getItem("access_token")
+        }
+      };
+      axios
+        .post("http://13.209.160.6:8080/api/v1/shops", this.form, config)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-/* #regist {
+#regist {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100vh;
-  .container-center {
-    width: 80%;
-    height: 100vh;
-    margin-top: 76px;
-    background-color: seagreen;
-  }
-} */
+}
 </style>
