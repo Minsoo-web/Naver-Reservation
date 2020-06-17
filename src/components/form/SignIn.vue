@@ -1,14 +1,7 @@
 <template>
   <div id="form-login">
-    <v-alert v-if="isLoginError" type="error"
-      >이메일 또는 비밀번호를 확인해 주세요</v-alert
-    >
-    <v-text-field
-      label="Email address"
-      v-model="email"
-      :rules="rules"
-      hide-details="auto"
-    ></v-text-field>
+    <v-alert v-if="isLoginError" type="error">이메일 또는 비밀번호를 확인해 주세요</v-alert>
+    <v-text-field label="Email address" v-model="email" :rules="rules" hide-details="auto"></v-text-field>
     <v-text-field
       ref="refPassword"
       label="Password"
@@ -17,6 +10,10 @@
       :rules="rules"
       hide-details="auto"
       type="password"
+      @keyup.enter="login({
+         email: email,
+          password: password,
+      })"
     ></v-text-field>
     <Button
       :text="'login'"
@@ -39,10 +36,10 @@ let inko = new Inko();
 export default {
   name: "SignIn",
   components: {
-    Button,
+    Button
   },
   computed: {
-    ...mapState(["isLogin", "isLoginError"]),
+    ...mapState(["isLogin", "isLoginError"])
   },
   watch: {
     isLogin(newVal) {
@@ -60,7 +57,7 @@ export default {
       if (newVal != "") {
         this.clearLoginError();
       }
-    },
+    }
   },
   data() {
     return {
@@ -68,24 +65,24 @@ export default {
       password: "",
       // 검증
       rules: [
-        (value) => !!value || "Required",
+        value => !!value || "Required"
         //(value) => (value && value.length >= 3) || "Min 3 characters",
-      ],
+      ]
     };
   },
   props: {
     signUpEmail: {
       type: String,
-      default: "",
-    },
+      default: ""
+    }
   },
   methods: {
     ...mapActions(["login"]),
     ...mapMutations(["clearLoginError"]),
     Ko2En($event) {
       this.password = inko.ko2en($event);
-    },
-  },
+    }
+  }
 };
 </script>
 
