@@ -191,6 +191,7 @@ export default new Vuex.Store({
               email: response.data.email,
               name: response.data.name,
               picture: picture,
+              authority: response.data.authority,
             };
             commit("loginSuccess", obj);
           })

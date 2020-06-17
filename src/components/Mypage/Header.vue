@@ -5,6 +5,7 @@
       <div class="userInfo-box">
         <span>{{ userInfo.name }}님</span>
         <span>{{ userInfo.email }}</span>
+        <span>{{ userInfo.authority }}</span>
         <router-link :to="{name : 'Edit'}">
           <Button :text="'프로필 수정'" />
         </router-link>
