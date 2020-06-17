@@ -12,11 +12,8 @@ import Footer from "@/components/Footer";
 export default {
   components: {
     Nav,
-    Footer,
-  },
-  created() {
-    console.log(process.env);
-  },
+    Footer
+  }
 };
 </script>
 
