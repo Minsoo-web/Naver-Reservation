@@ -32,6 +32,7 @@
 import { mapState } from "vuex";
 import axios from "axios";
 import Button from "@/components/UI-Components/Button";
+import router from "@/router/index.js";
 export default {
   components: {
     Button
@@ -60,7 +61,8 @@ export default {
       axios
         .post("http://13.209.160.6:8080/api/v1/shops", this.form, config)
         .then(res => {
-          console.log(res);
+          let id = res.data;
+          router.push({ path: `/shop/detail/${id}` });
         })
         .catch(err => {
           console.log(err);
