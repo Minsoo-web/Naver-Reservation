@@ -85,9 +85,32 @@ const routes = [
       },
       {
         path: "/owner/regist",
-        name: "Regist",
+        name: "Owner_Regist",
         beforeEnter: onlyAuthUser,
         component: () => import("@/views/Owner/Regist"),
+      },
+    ],
+  },
+  {
+    path: "/shop",
+    name: "Shop",
+    component: () => import("@/views/Shop/Index"),
+    children: [
+      {
+        path: "list/",
+        name: "Shop_List",
+        component: () => import("@/views/Shop/_list"),
+        children: [
+          {
+            path: ":category/",
+            component: () => import("@/views/Shop/_list"),
+          },
+        ],
+      },
+      {
+        path: "detail/:id",
+        name: "Shop_Detail",
+        component: () => import("@/views/Shop/_detail"),
       },
     ],
   },
