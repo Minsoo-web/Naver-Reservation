@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     async asyncData(route) {
-      console.log(route.params.id);
+      // console.log(route.params.id);
       try {
         let config = {
           headers: {
