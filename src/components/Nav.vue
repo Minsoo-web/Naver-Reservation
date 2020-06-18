@@ -13,7 +13,7 @@
             <v-list-item router :to="{ name: 'Mypage' }">
               <v-list-item-title>마이페이지</v-list-item-title>
             </v-list-item>
-            <v-list-item router :to="{ name: 'Regist' }">
+            <v-list-item router :to="{ name: 'Owner_Regist' }">
               <v-list-item-title>매장등록하기</v-list-item-title>
             </v-list-item>
             <v-list-item @click="logout">

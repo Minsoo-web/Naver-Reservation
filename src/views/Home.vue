@@ -1,22 +1,32 @@
 <template>
-  <div id="home">
-    <h1>Hello</h1>
-    <router-link :to="{ name: 'Mypage' }" exact>내 예약 확인하기</router-link>
-  </div>
+  <Content>
+    <div id="home">
+      <h1>Hello</h1>
+      <ul>
+        <li>
+          <router-link :to="{ name: 'Mypage' }" exact>내 예약 확인하기</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'Shop_List' }" exact>가맹점 둘러보기</router-link>
+        </li>
+      </ul>
+    </div>
+  </Content>
 </template>
 
 <script>
+import Content from "@/components/Content";
 export default {
   name: "Home",
+  components: {
+    Content
+  }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #home {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
+  position: relative;
+  top: 50%;
 }
 </style>
