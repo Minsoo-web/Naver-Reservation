@@ -22,7 +22,7 @@
           </v-list>
         </v-menu>
         <div v-else>
-          <router-link :to="{ name: 'Login' }">Login</router-link>
+          <router-link :to="{ name: 'Login' }" class="test-login">Login</router-link>
           <router-link :to="{ name: 'SignUp' }">Sign Up</router-link>
         </div>
       </li>

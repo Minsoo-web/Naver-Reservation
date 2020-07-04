@@ -1,8 +1,15 @@
 <template>
   <div id="form-login">
     <v-alert v-if="isLoginError" type="error">이메일 또는 비밀번호를 확인해 주세요</v-alert>
-    <v-text-field label="Email address" v-model="email" :rules="rules" hide-details="auto"></v-text-field>
     <v-text-field
+      label="Email address"
+      v-model="email"
+      :rules="rules"
+      hide-details="auto"
+      class="test-input-email"
+    ></v-text-field>
+    <v-text-field
+      class="test-input-password"
       ref="refPassword"
       label="Password"
       v-model="password"

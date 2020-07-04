@@ -1,16 +1,18 @@
 <template>
   <Content>
-    <ul v-for="shopInfo in shopList" :key="shopInfo.id">
-      <li>
-        <router-link :to="{ path : `/shop/detail/${shopInfo.id}` }">
-          <div>
-            <ul v-for="(content,index) in shopInfo" :key="index">
-              <li>{{content}}</li>
-            </ul>
-          </div>
-        </router-link>
-      </li>
-    </ul>
+    <div class="list-wrapper">
+      <ul v-for="shopInfo in shopList" :key="shopInfo.id">
+        <li>
+          <router-link :to="{ path : `/shop/detail/${shopInfo.id}` }">
+            <div>
+              <ul v-for="(content,index) in shopInfo" :key="index">
+                <li>{{content}}</li>
+              </ul>
+            </div>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </Content>
 </template>
 
@@ -50,5 +52,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid;
+}
 </style>
