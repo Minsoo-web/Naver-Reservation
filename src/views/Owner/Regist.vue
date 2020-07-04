@@ -58,8 +58,12 @@ export default {
           Authorization: localStorage.getItem("access_token")
         }
       };
+      let uploadForm = {
+        ...this.form,
+        author: this.userInfo.name
+      };
       axios
-        .post("http://13.209.160.6:8080/api/v1/shops", this.form, config)
+        .post("http://13.209.160.6:8080/api/v1/shops", uploadForm, config)
         .then(res => {
           let id = res.data;
           router.push({ path: `/shop/detail/${id}` });
