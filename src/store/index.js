@@ -143,7 +143,7 @@ export default new Vuex.Store({
   actions: {
     login({ commit, dispatch }, loginObj) {
       axios
-        .post("http://13.209.160.6:8080/api/v1/users/signin/", {
+        .post("https://shophere-backend.herokuapp.com/api/v1/users/signin/", {
           email: loginObj.email,
           password: loginObj.password,
         })
@@ -174,7 +174,7 @@ export default new Vuex.Store({
       if (localStorage.getItem("access_token")) {
         axios
           .get(
-            `http://13.209.160.6:8080/api/v1/users/?Email=${localStorage.getItem(
+            `https://shophere-backend.herokuapp.com/api/v1/users/?Email=${localStorage.getItem(
               "userEmail"
             )}`,
             config
@@ -204,7 +204,7 @@ export default new Vuex.Store({
     signUp({ commit }, signUpObj) {
       axios
         .get(
-          `http://13.209.160.6:8080/api/v1/users/authority/?email=${signUpObj.email}`
+          `https://shophere-backend.herokuapp.com/api/v1/users/authority/?email=${signUpObj.email}`
         )
         .then((res) => {
           if (res.data) {
@@ -215,7 +215,7 @@ export default new Vuex.Store({
             // 이메일 중복 통과
             commit("clearSignUpError");
             axios
-              .post("http://13.209.160.6:8080/api/v1/users/", {
+              .post("https://shophere-backend.herokuapp.com/api/v1/users/", {
                 email: signUpObj.email,
                 name: signUpObj.name,
                 password: signUpObj.password,
@@ -246,7 +246,7 @@ export default new Vuex.Store({
       };
       axios
         .put(
-          `http://13.209.160.6:8080/api/v1/users/info/?email=${localStorage.getItem(
+          `https://shophere-backend.herokuapp.com/api/v1/users/info/?email=${localStorage.getItem(
             "userEmail"
           )}`,
           updateObj,
@@ -273,7 +273,7 @@ export default new Vuex.Store({
       };
       axios
         .put(
-          `http://13.209.160.6:8080/api/v1/users/password/?email=${localStorage.getItem(
+          `https://shophere-backend.herokuapp.com/api/v1/users/password/?email=${localStorage.getItem(
             "userEmail"
           )}`,
           newUserPw,
