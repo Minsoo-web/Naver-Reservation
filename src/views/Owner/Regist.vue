@@ -63,7 +63,11 @@ export default {
         author: this.userInfo.name
       };
       axios
-        .post("http://13.209.160.6:8080/api/v1/shops", uploadForm, config)
+        .post(
+          "https://shophere-backend.herokuapp.com/api/v1/owners",
+          uploadForm,
+          config
+        )
         .then(res => {
           let id = res.data;
           router.push({ path: `/shop/detail/${id}` });
